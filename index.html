@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>UserrTM VPN Bahalar</title>
-
   <style>
     * {
       box-sizing: border-box;
@@ -14,55 +13,167 @@
     }
 
     body {
-      background: linear-gradient(135deg, #0f172a, #1e293b);
-      color: white;
-      padding: 30px 15px;
+      background:
+        radial-gradient(circle at top, rgba(56, 189, 248, 0.16), transparent 28%),
+        radial-gradient(circle at bottom right, rgba(250, 204, 21, 0.08), transparent 25%),
+        linear-gradient(135deg, #020617, #0f172a 45%, #1e293b);
+      color: #fff;
+      padding: 20px 12px 36px;
     }
 
     .container {
-      max-width: 1200px;
+      max-width: 1250px;
       margin: 0 auto;
     }
 
-    .header {
+    .hero {
       text-align: center;
-      margin-bottom: 30px;
+      padding: 24px 14px 18px;
+      margin-bottom: 28px;
+      position: relative;
     }
 
-    .header h1 {
-      font-size: 36px;
-      margin-bottom: 10px;
+    .hero::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      top: 10px;
+      width: 220px;
+      height: 220px;
+      background: radial-gradient(circle, rgba(56,189,248,0.12), transparent 65%);
+      filter: blur(16px);
+      z-index: 0;
     }
 
-    .header p {
-      font-size: 18px;
+    .logo-wrap,
+    .hero-badge,
+    .hero h1,
+    .hero p,
+    .lang-switch {
+      position: relative;
+      z-index: 1;
+    }
+
+    .logo-wrap {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 14px;
+    }
+
+    .logo-circle {
+      width: 76px;
+      height: 76px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+      font-weight: 800;
+      color: #e0f2fe;
+      background: linear-gradient(135deg, rgba(56,189,248,0.28), rgba(255,255,255,0.10));
+      border: 1px solid rgba(255,255,255,0.16);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.28);
+      backdrop-filter: blur(12px);
+    }
+
+    .hero-badge {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: #7dd3fc;
+      font-size: 13px;
+      margin-bottom: 16px;
+      backdrop-filter: blur(8px);
+    }
+
+    .hero h1 {
+      font-size: 40px;
+      margin-bottom: 12px;
+      letter-spacing: 0.4px;
+    }
+
+    .hero p {
+      max-width: 760px;
+      margin: 0 auto 16px;
       color: #cbd5e1;
+      font-size: 17px;
+      line-height: 1.7;
+    }
+
+    .lang-switch {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .lang-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: #e2e8f0;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .lang-btn.active {
+      background: rgba(56,189,248,0.14);
+      border-color: rgba(56,189,248,0.35);
+      color: #bae6fd;
     }
 
     .plans {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 20px;
+      gap: 22px;
+      align-items: stretch;
     }
 
     .card {
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      border-radius: 20px;
-      padding: 24px;
-      backdrop-filter: blur(10px);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
       position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 100%;
+      padding: 24px;
+      border-radius: 24px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.11), rgba(255,255,255,0.05));
+      border: 1px solid rgba(255,255,255,0.12);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.32);
+      backdrop-filter: blur(14px);
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(255,255,255,0.06), transparent 35%);
+      pointer-events: none;
     }
 
     .card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 16px 40px rgba(0,0,0,0.35);
+      transform: translateY(-8px);
+      box-shadow: 0 22px 50px rgba(0,0,0,0.42);
+      border-color: rgba(255,255,255,0.2);
     }
 
-    .card h2 {
+    .top {
+      position: relative;
+      z-index: 1;
+    }
+
+    .plan-name {
       font-size: 28px;
+      font-weight: 700;
       margin-bottom: 8px;
     }
 
@@ -73,109 +184,286 @@
     }
 
     .price {
-      font-size: 30px;
-      font-weight: bold;
-      margin-bottom: 6px;
-      color: #38bdf8;
+      font-size: 33px;
+      font-weight: 800;
+      margin-bottom: 8px;
     }
 
     .week {
-      font-size: 18px;
-      margin-bottom: 20px;
+      font-size: 17px;
       color: #f8fafc;
+      margin-bottom: 18px;
+    }
+
+    .divider {
+      height: 1px;
+      background: rgba(255,255,255,0.1);
+      margin: 18px 0;
     }
 
     .card ul {
       list-style: none;
-      margin-top: 12px;
     }
 
     .card ul li {
-      margin-bottom: 10px;
-      line-height: 1.5;
       color: #e2e8f0;
+      margin-bottom: 12px;
+      line-height: 1.5;
+      font-size: 15px;
+    }
+
+    .card ul li::before {
+      content: "✓";
+      color: #38bdf8;
+      font-weight: bold;
+      margin-right: 10px;
+    }
+
+    .btn {
+      display: inline-block;
+      width: 100%;
+      text-align: center;
+      text-decoration: none;
+      padding: 13px 16px;
+      border-radius: 14px;
+      font-weight: 700;
+      margin-top: 22px;
+      transition: 0.25s ease;
+      border: 1px solid transparent;
+      position: relative;
+      z-index: 1;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      opacity: 0.96;
     }
 
     .badge {
       position: absolute;
-      top: 18px;
-      right: 18px;
-      background: #facc15;
-      color: #111827;
-      font-size: 12px;
-      font-weight: bold;
-      padding: 6px 10px;
+      top: 16px;
+      right: 16px;
+      padding: 7px 12px;
       border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
     }
 
     .badge-new {
       position: absolute;
       top: -10px;
-      left: 15px;
+      left: 16px;
       background: #22c55e;
       color: white;
       font-size: 12px;
-      font-weight: bold;
-      padding: 5px 10px;
+      font-weight: 700;
+      padding: 6px 11px;
       border-radius: 999px;
+      box-shadow: 0 8px 20px rgba(34,197,94,0.35);
+      z-index: 2;
     }
 
     .mini .price { color: #22c55e; }
+    .mini .btn {
+      background: rgba(34,197,94,0.14);
+      color: #bbf7d0;
+      border-color: rgba(34,197,94,0.35);
+    }
+
     .econom .price { color: #60a5fa; }
+    .econom .btn {
+      background: rgba(96,165,250,0.13);
+      color: #bfdbfe;
+      border-color: rgba(96,165,250,0.35);
+    }
+
     .standart .price { color: #a78bfa; }
+    .standart .btn {
+      background: rgba(167,139,250,0.14);
+      color: #ddd6fe;
+      border-color: rgba(167,139,250,0.35);
+    }
 
     .premium {
-      border: 2px solid #facc15;
-      transform: scale(1.03);
+      transform: scale(1.04);
+      border: 1px solid rgba(250,204,21,0.45);
+      background:
+        radial-gradient(circle at top, rgba(250,204,21,0.18), transparent 35%),
+        linear-gradient(180deg, rgba(255,255,255,0.14), rgba(255,255,255,0.06));
+      box-shadow: 0 18px 55px rgba(250,204,21,0.12), 0 18px 45px rgba(0,0,0,0.38);
+    }
+
+    .premium:hover {
+      transform: scale(1.04) translateY(-8px);
     }
 
     .premium .price { color: #facc15; }
-    .vip .price { color: #f97316; }
+
+    .premium .badge {
+      background: linear-gradient(90deg, #facc15, #fde68a);
+      color: #111827;
+      box-shadow: 0 8px 22px rgba(250,204,21,0.35);
+    }
+
+    .premium .btn {
+      background: linear-gradient(90deg, #facc15, #eab308);
+      color: #111827;
+      border: none;
+      box-shadow: 0 10px 24px rgba(250,204,21,0.28);
+    }
+
+    .vip .price { color: #fb923c; }
+    .vip .btn {
+      background: rgba(249,115,22,0.14);
+      color: #fed7aa;
+      border-color: rgba(249,115,22,0.35);
+    }
 
     .footer {
       text-align: center;
-      margin-top: 40px;
-      font-size: 18px;
-      color: #94a3b8;
+      margin-top: 38px;
+      padding: 20px;
+      color: #cbd5e1;
+      font-size: 17px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 18px;
+      backdrop-filter: blur(10px);
     }
 
     .contacts {
-      margin-top: 40px;
-      padding: 25px;
-      border-radius: 15px;
-      background: rgba(255,255,255,0.05);
-      line-height: 1.8;
-      font-size: 16px;
+      margin-top: 30px;
+      padding: 28px;
+      border-radius: 22px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.04));
+      border: 1px solid rgba(255,255,255,0.1);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.22);
+      backdrop-filter: blur(12px);
     }
 
-    .contacts h3 {
-      margin-bottom: 10px;
-      color: #38bdf8;
-    }
-
-    .contacts a {
-      color: #38bdf8;
-      text-decoration: none;
-    }
-
-    .contacts a:hover {
-      text-decoration: underline;
+    .contacts-title {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 24px;
+      color: #7dd3fc;
     }
 
     .contact-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 20px;
+      gap: 24px;
+    }
+
+    .contact-box {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 18px;
+      padding: 20px;
+    }
+
+    .contact-box h3 {
+      margin-bottom: 16px;
+      color: #e2e8f0;
+      font-size: 20px;
+    }
+
+    .contact-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .contact-icon {
+      width: 42px;
+      height: 42px;
+      min-width: 42px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 700;
+      color: white;
+    }
+
+    .icon-link { background: linear-gradient(135deg, #38bdf8, #0ea5e9); }
+    .icon-imo { background: linear-gradient(135deg, #60a5fa, #2563eb); }
+    .icon-sms { background: linear-gradient(135deg, #a78bfa, #7c3aed); }
+    .icon-wa { background: linear-gradient(135deg, #22c55e, #16a34a); }
+    .icon-mail { background: linear-gradient(135deg, #f97316, #ea580c); }
+    .icon-tg { background: linear-gradient(135deg, #38bdf8, #2563eb); }
+
+    .contact-text {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      min-width: 0;
+    }
+
+    .contact-label {
+      font-size: 13px;
+      color: #94a3b8;
+    }
+
+    .contact-value {
+      color: #f8fafc;
+      text-decoration: none;
+      font-size: 15px;
+      word-break: break-word;
+    }
+
+    .contact-value:hover {
+      text-decoration: underline;
     }
 
     @media (max-width: 768px) {
-      .header h1 { font-size: 28px; }
-      .header p { font-size: 16px; }
-      .card h2 { font-size: 24px; }
-      .price { font-size: 26px; }
+      body {
+        padding: 18px 12px 30px;
+      }
+
+      .hero {
+        padding: 18px 8px 12px;
+      }
+
+      .hero h1 {
+        font-size: 30px;
+      }
+
+      .hero p {
+        font-size: 15px;
+      }
+
+      .plan-name {
+        font-size: 24px;
+      }
+
+      .price {
+        font-size: 28px;
+      }
+
+      .premium,
+      .premium:hover {
+        transform: none;
+      }
 
       .contact-grid {
         grid-template-columns: 1fr;
+      }
+
+      .logo-circle {
+        width: 68px;
+        height: 68px;
+        font-size: 23px;
       }
     }
   </style>
@@ -184,72 +472,101 @@
 <body>
   <div class="container">
 
-    <div class="header">
-      <h1>Bahalar</h1>
-      <p>Size laýyk plany saýlaň</p>
+    <div class="hero">
+      <div class="logo-wrap">
+        <div class="logo-circle">UT</div>
+      </div>
+      <div class="hero-badge">Premium VPN hyzmatlary</div>
+      <h1>UserrTM VPN Bahalar</h1>
+      <p>Özüňize laýyk plany saýlaň we ýokary tizlikli, durnukly hem-de amatly hyzmatdan peýdalanyň.</p>
+
+      <div class="lang-switch">
+        <a href="#" class="lang-btn active">🇹🇲 Türkmençe</a>
+        <a href="#" class="lang-btn">🇷🇺 Русский</a>
+      </div>
     </div>
 
     <div class="plans">
 
       <div class="card mini">
         <div class="badge-new">NEW</div>
-        <h2>Mini</h2>
-        <div class="subtitle">(Basic)</div>
-        <div class="price">70 TMT / aýyna</div>
-        <div class="week">18 TMT / hepdä</div>
-        <ul>
-          <li>• Diňe Niderland serweri</li>
-          <li>• TikTok, YouTube, Instagram, Telegram</li>
-          <li>• Ýeňil ulanmak üçin amatly</li>
-        </ul>
+        <div class="top">
+          <div class="plan-name">Mini</div>
+          <div class="subtitle">(Basic)</div>
+          <div class="price">70 TMT / aýyna</div>
+          <div class="week">18 TMT / hepdä</div>
+          <div class="divider"></div>
+          <ul>
+            <li>Diňe Niderland serweri</li>
+            <li>TikTok, YouTube, Instagram, Telegram</li>
+            <li>Ýeňil ulanmak üçin amatly</li>
+          </ul>
+        </div>
+        <a class="btn" href="https://t.me/UserrTM?text=Salam%20Mini%20plan%20almak%20istiyorum" target="_blank">Satyn al</a>
       </div>
 
       <div class="card econom">
-        <h2>Econom</h2>
-        <div class="price">100 TMT / aýyna</div>
-        <div class="week">25 TMT / hepdä</div>
-        <ul>
-          <li>• 5 ýurt serweri</li>
-          <li>• TikTok, YouTube, Instagram, Telegram</li>
-          <li>• Ähli programmalara laýyk</li>
-        </ul>
+        <div class="top">
+          <div class="plan-name">Econom</div>
+          <div class="price">100 TMT / aýyna</div>
+          <div class="week">25 TMT / hepdä</div>
+          <div class="divider"></div>
+          <ul>
+            <li>5 ýurt serweri</li>
+            <li>TikTok, YouTube, Instagram, Telegram</li>
+            <li>Ähli programmalara laýyk</li>
+          </ul>
+        </div>
+        <a class="btn" href="https://t.me/UserrTM?text=Salam%20Econom%20plan%20almak%20istiyorum" target="_blank">Satyn al</a>
       </div>
 
       <div class="card standart">
-        <h2>Standart</h2>
-        <div class="price">150 TMT / aýyna</div>
-        <div class="week">40 TMT / hepdä</div>
-        <ul>
-          <li>• Dünýä boýunça serwerler</li>
-          <li>• TikTok, YouTube, Instagram, Telegram, Copart we ş.m</li>
-          <li>• Ähli programmalara laýyk</li>
-        </ul>
+        <div class="top">
+          <div class="plan-name">Standart</div>
+          <div class="price">150 TMT / aýyna</div>
+          <div class="week">40 TMT / hepdä</div>
+          <div class="divider"></div>
+          <ul>
+            <li>Dünýä boýunça serwerler</li>
+            <li>TikTok, YouTube, Instagram, Telegram, Copart we ş.m</li>
+            <li>Ähli programmalara laýyk</li>
+          </ul>
+        </div>
+        <a class="btn" href="https://t.me/UserrTM?text=Salam%20Standart%20plan%20almak%20istiyorum" target="_blank">Satyn al</a>
       </div>
 
       <div class="card premium">
         <div class="badge">⭐ Most popular</div>
-        <h2>Premium</h2>
-        <div class="price">200 TMT / aýyna</div>
-        <div class="week">50 TMT / hepdä</div>
-        <ul>
-          <li>• Dünýä boýunça serwerler</li>
-          <li>• Ähli platformalara doly</li>
-          <li>• TikTok, YouTube, Instagram, Telegram, Copart we ş.m</li>
-          <li>• Ähli VPN programmalara laýyk</li>
-        </ul>
+        <div class="top">
+          <div class="plan-name">Premium</div>
+          <div class="price">200 TMT / aýyna</div>
+          <div class="week">50 TMT / hepdä</div>
+          <div class="divider"></div>
+          <ul>
+            <li>Dünýä boýunça serwerler</li>
+            <li>Ähli platformalara doly</li>
+            <li>TikTok, YouTube, Instagram, Telegram, Copart we ş.m</li>
+            <li>Ähli VPN programmalara laýyk</li>
+          </ul>
+        </div>
+        <a class="btn" href="https://t.me/UserrTM?text=Salam%20Premium%20plan%20almak%20istiyorum" target="_blank">Satyn al</a>
       </div>
 
       <div class="card vip">
-        <h2>VIP</h2>
-        <div class="price">300 TMT / aýyna</div>
-        <div class="week">70 TMT / hepdä</div>
-        <ul>
-          <li>• Dünýä boýunça serwerler</li>
-          <li>• Ähli platformalara doly</li>
-          <li>• Oýun üçin niýetlenen</li>
-          <li>• Ähli VPN programmalara laýyk</li>
-          <li>• Iň ýokary tizlik</li>
-        </ul>
+        <div class="top">
+          <div class="plan-name">VIP</div>
+          <div class="price">300 TMT / aýyna</div>
+          <div class="week">70 TMT / hepdä</div>
+          <div class="divider"></div>
+          <ul>
+            <li>Dünýä boýunça serwerler</li>
+            <li>Ähli platformalara doly</li>
+            <li>Oýun üçin niýetlenen</li>
+            <li>Ähli VPN programmalara laýyk</li>
+            <li>Iň ýokary tizlik</li>
+          </ul>
+        </div>
+        <a class="btn" href="https://t.me/UserrTM?text=Salam%20VIP%20plan%20almak%20istiyorum" target="_blank">Satyn al</a>
       </div>
 
     </div>
@@ -259,28 +576,114 @@
     </div>
 
     <div class="contacts">
+      <div class="contacts-title">Habarlaşmak üçin</div>
+
       <div class="contact-grid">
+        <div class="contact-box">
+          <h3>Türkmençe</h3>
+          <div class="contact-list">
+            <div class="contact-item">
+              <div class="contact-icon icon-link">☎</div>
+              <div class="contact-text">
+                <div class="contact-label">Link</div>
+                <a class="contact-value" href="tel:+99362723560">+993 62 72 35 60</a>
+              </div>
+            </div>
 
-        <div>
-          <h3>📞 Habarlaşmak üçin:</h3>
-          🔗 Link: <a href="tel:+99362723560">+993 62 72 35 60</a><br>
-          💬 IMO: <a href="tel:+99364125409">+993 64 12 54 09</a><br>
-          📩 SMS: <a href="sms:+99362434203">+993 62 43 42 03</a><br>
-          🟢 WhatsApp: <a href="https://wa.me/99362434203" target="_blank">@+993 62 43 42 03</a><br>
-          📩 Gmail: <a href="mailto:userrtmservers@gmail.com">userrtmservers@gmail.com</a><br>
-          ✈️ Telegram: <a href="https://t.me/UserrTM" target="_blank">@UserrTM</a>
+            <div class="contact-item">
+              <div class="contact-icon icon-imo">I</div>
+              <div class="contact-text">
+                <div class="contact-label">IMO</div>
+                <a class="contact-value" href="tel:+99364125409">+993 64 12 54 09</a>
+              </div>
+            </div>
+
+            <div class="contact-item">
+              <div class="contact-icon icon-sms">✉</div>
+              <div class="contact-text">
+                <div class="contact-label">SMS</div>
+                <a class="contact-value" href="sms:+99362434203">+993 62 43 42 03</a>
+              </div>
+            </div>
+
+            <div class="contact-item">
+              <div class="contact-icon icon-wa">W</div>
+              <div class="contact-text">
+                <div class="contact-label">WhatsApp</div>
+                <a class="contact-value" href="https://wa.me/99362434203" target="_blank">+993 62 43 42 03</a>
+              </div>
+            </div>
+
+            <div class="contact-item">
+              <div class="contact-icon icon-mail">@</div>
+              <div class="contact-text">
+                <div class="contact-label">Gmail</div>
+                <a class="contact-value" href="mailto:userrtmservers@gmail.com">userrtmservers@gmail.com</a>
+              </div>
+            </div>
+
+            <div class="contact-item">
+              <div class="contact-icon icon-tg">T</div>
+              <div class="contact-text">
+                <div class="contact-label">Telegram</div>
+                <a class="contact-value" href="https://t.me/UserrTM" target="_blank">@UserrTM</a>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div>
-          <h3>📞 Контакты для связи:</h3>
-          🔗 Link: <a href="tel:+99362723560">+993 62 72 35 60</a><br>
-          💬 IMO: <a href="tel:+99364125409">+993 64 12 54 09</a><br>
-          📩 SMS: <a href="sms:+99362434203">+993 62 43 42 03</a><br>
-          🟢 WhatsApp: <a href="https://wa.me/99362434203" target="_blank">+993 62 43 42 03</a><br>
-          📩 Gmail: <a href="mailto:userrtmservers@gmail.com">userrtmservers@gmail.com</a><br>
-          ✈️ Telegram: <a href="https://t.me/UserrTM" target="_blank">@UserrTM</a>
-        </div>
+        <div class="contact-box">
+          <h3>Русский</h3>
+          <div class="contact-list">
+            <div class="contact-item">
+              <div class="contact-icon icon-link">☎</div>
+              <div class="contact-text">
+                <div class="contact-label">Link</div>
+                <a class="contact-value" href="tel:+99362723560">+993 62 72 35 60</a>
+              </div>
+            </div>
 
+            <div class="contact-item">
+              <div class="contact-icon icon-imo">I</div>
+              <div class="contact-text">
+                <div class="contact-label">IMO</div>
+                <a class="contact-value" href="tel:+99364125409">+993 64 12 54 09</a>
+              </div>
+            </div>
+
+            <div class="contact-item">
+              <div class="contact-icon icon-sms">✉</div>
+              <div class="contact-text">
+                <div class="contact-label">SMS</div>
+                <a class="contact-value" href="sms:+99362434203">+993 62 43 42 03</a>
+              </div>
+            </div>
+
+            <div class="contact-item">
+              <div class="contact-icon icon-wa">W</div>
+              <div class="contact-text">
+                <div class="contact-label">WhatsApp</div>
+                <a class="contact-value" href="https://wa.me/99362434203" target="_blank">+993 62 43 42 03</a>
+              </div>
+            </div>
+
+            <div class="contact-item">
+              <div class="contact-icon icon-mail">@</div>
+              <div class="contact-text">
+                <div class="contact-label">Gmail</div>
+                <a class="contact-value" href="mailto:userrtmservers@gmail.com">userrtmservers@gmail.com</a>
+              </div>
+            </div>
+
+            <div class="contact-item">
+              <div class="contact-icon icon-tg">T</div>
+              <div class="contact-text">
+                <div class="contact-label">Telegram</div>
+                <a class="contact-value" href="https://t.me/UserrTM" target="_blank">@UserrTM</a>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
